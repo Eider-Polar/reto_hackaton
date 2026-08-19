@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // ws://192.168.101.3:12345
-const peers = process.env.PEERS ? process.env.PEERS.split(",") : [];
+const peers = process.env.PEERS ? process.env.PEERS.split(",") : ['ws://localhost:5100'];
 const P2P_PORT = process.env.P2P_PORT;
 const MESSAGE_TYPES = {
   chain: "CHAIN",
@@ -51,6 +51,7 @@ class P2PServer {
 
   messageHandler(socket) {
     socket.on("message", (message) => {
+      console.log("message received: " + message);
       const data = JSON.parse(message);
       // this.blockchain.remplaceChain(data);
       switch (data.type) {
@@ -75,6 +76,7 @@ class P2PServer {
       })
     );
   }
+  // C:\Users\samyr\OneDrive\Documentos\blockchain_minado\backend
 
   syncChains() {
     if (!sockets) {
@@ -114,4 +116,6 @@ class P2PServer {
     );
   }
 }
+
+
 export default P2PServer;

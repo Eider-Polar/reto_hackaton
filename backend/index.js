@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 dotenv.config();
-conectarDB();
+// conectarDB();
 app.use(cors());
 
 app.use("/api/organizacion", OrganizacionRouter);
@@ -35,6 +35,8 @@ console.log(PORT);
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });
+
+//Rutas para  la cripto moneda Paco Coin 
 
 app.post("/mine", (req, res) => {
   const block = bc.addBlock(req.body.data);
@@ -59,6 +61,9 @@ app.post("/transact", (req, res) => {
 });
 app.get('/publicKey',(req,res)=>{
   res.json({publicKey:wallet.publicKey})
+})
+app.get('/key',(req,res)=>{
+  res.json({publicKey:wallet.keyPair})
 })
 app.post('/mine_transactions',(req,res)=>{
   const block = miner.mine();
